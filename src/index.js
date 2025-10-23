@@ -1,9 +1,11 @@
 import promptSync from 'prompt-sync';
 import Player from './player.js';
+import selectPlayer from './playerChoice.js';
+import funcs from './function.js';
+
+const { playerRaceEngine, rollDice} = funcs
 
 const prompt = promptSync();
-
-let selectedPlayer;
 
 const mensagemPrompt = `Selecione o player (1 a 6):
 1 = Mario
@@ -15,43 +17,23 @@ const mensagemPrompt = `Selecione o player (1 a 6):
 `;
 
 console.log(mensagemPrompt);
+const player1Choice = prompt('');
+const player1 = selectPlayer(player1Choice);
 
-const playerChoice = prompt('');
+console.log(mensagemPrompt);
+const player2Choice = prompt('');
+const player2 = selectPlayer(player2Choice)
 
 
-switch (playerChoice) {
-    case "1": {
-        selectedPlayer = new Player({ name: "mario", velocidade: 4, manobrabilidade: 3, poder: 3, pontos: 0 });
-        break;
-    }
-    case "2": {
-        selectedPlayer = new Player({ name: "luigi", velocidade: 3, manobrabilidade: 4, poder: 4, pontos: 0 });
-        break;
-    }
-    case "3": {
-        selectedPlayer = new Player({ name: "peach", velocidade: 3, manobrabilidade: 4, poder: 2, pontos: 0 });
-        break;
-    }
-    case "4": {
-        selectedPlayer = new Player({ name: "yoshi", velocidade: 2, manobrabilidade: 4, poder: 3, pontos: 0 });
-        break;
-    }
-    case "5": {
-        selectedPlayer = new Player({ name: "bowser", velocidade: 5, manobrabilidade: 2, poder: 5, pontos: 0 });
-        break;
-    }
-    case "6": {
-        selectedPlayer = new Player({ name: "kong", velocidade: 2, manobrabilidade: 2, poder: 5, pontos: 0 });
-        break;
-    }
+if (player1 && player2) {
+    console.log(`Jogadores selecionados: ${player1.name} e ${player2.name}`);
+    //console.log(player1, player2);
+    (async function main() {
+        console.log(
+            `🤠🚗 Corrida entre ${player1.name} e ${player2.name} começando...\n`
+        );
+        await playerRaceEngine(player1, player2);
 
-    default: {
-        console.log("Chose a valid player")
-        break;
-    }
+    })();
 }
 
-if (selectedPlayer) {
-    console.log(`Jogador selecionado: ${selectedPlayer.name}`);
-    console.log(selectedPlayer);
-}
