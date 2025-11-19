@@ -27,6 +27,13 @@ export default class Player {
         return this._pontos
     }
 
+    set pontos(value) {
+        if (typeof value !== "number" || !Number.isInteger(value)) {
+            console.log("Você deve passar um valor numerico inteiro")
+            return
+        }
+        this._pontos = value
+    }
     _capitalize(value) {
         return `${value.charAt(0).toUpperCase()}${value.slice(1)}`
     }

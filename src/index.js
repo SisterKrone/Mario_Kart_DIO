@@ -1,9 +1,8 @@
 import promptSync from 'prompt-sync';
-import Player from './player.js';
 import selectPlayer from './playerChoice.js';
 import funcs from './function.js';
 
-const { playerRaceEngine, rollDice} = funcs
+const { playerRaceEngine, declareWinner } = funcs;
 
 const prompt = promptSync();
 
@@ -22,7 +21,7 @@ const player1 = selectPlayer(player1Choice);
 
 console.log(mensagemPrompt);
 const player2Choice = prompt('');
-const player2 = selectPlayer(player2Choice)
+const player2 = selectPlayer(player2Choice);
 
 
 if (player1 && player2) {
@@ -33,6 +32,7 @@ if (player1 && player2) {
             `🤠🚗 Corrida entre ${player1.name} e ${player2.name} começando...\n`
         );
         await playerRaceEngine(player1, player2);
+        await declareWinner(player1, player2);
 
     })();
 }
